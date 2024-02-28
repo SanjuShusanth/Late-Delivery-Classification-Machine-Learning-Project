@@ -1,1 +1,29 @@
-key: val
+COLUMNS:
+  Type: object
+  Days_for_shipping_(real): int64
+  Days_for_shipment_(scheduled): int64
+  Benefit_per_order: float64
+  Sales_per_customer: float64
+  Delivery_Status: object
+  Late_delivery_risk: int64
+  Customer_Country: object
+  Customer_Segment: object
+  Department Name: object
+  Market: object
+  Order_Item_Discount: float64
+  Order_Item_Discount_Rate: float64
+  Order_Item_Product_Price: float64
+  Order_Item_Profit_Ratio: float64
+  Order_Item_Quantity: int64
+  Sales: float64
+  Order_Item_Total: float64
+  Order_Profit_Per_Order: float64
+  Order_Region: object
+  Order_Status: object
+  Product_Name: object
+  Product_Price: float64
+  Shipping_Mode: object
+
+
+TARGET_COLUMN:
+  name: Late_delivery_risk
