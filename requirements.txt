@@ -17,4 +17,5 @@ uvicorn==0.15.0
 python-multipart
 jinja2==3.0.3
 aiofiles
+xgboost
 -e .

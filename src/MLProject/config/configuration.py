@@ -1,6 +1,6 @@
 from MLProject.constants import *
 from MLProject.utils.common import read_yaml, create_directories
-from MLProject.entity.config_entity import DataIngestionConfig, DataValidationConfig
+from MLProject.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvaluationConfig
 
 
 class ConfigurationManager:
@@ -35,16 +35,76 @@ class ConfigurationManager:
                 config = self.config.data_validation
                 schema = self.schema.COLUMNS
 
+
                 create_directories([config.root_dir])
 
                 data_validation_config = DataValidationConfig(
                         root_dir=config.root_dir,
-                        STATUS_FILE= config.STATUS_FILE,
                         unzip_data_dir=config.unzip_data_dir,
-                        all_schema= schema,
+                        STATUS_FILE=config.STATUS_FILE,
                         train_data_path=config.train_data_path,
-                        test_data_path=config.test_data_path
+                        test_data_path=config.test_data_path,
+                        all_schema=schema
 
                 )
 
                 return data_validation_config
+        
+
+        def get_data_transformation_config(self) -> DataTransformationConfig:
+                config = self.config.data_transformation
+                schema = self.schema.TARGET_COLUMN
+
+                create_directories([config.root_dir])
+
+                data_transformation_config = DataTransformationConfig(
+                root_dir = config.root_dir,
+                preprocessor_path=config.preprocessor_path,
+                train_data_path=config.train_data_path,
+                test_data_path=config.test_data_path,
+                target_column=schema.name
+                )
+
+                return data_transformation_config
+        
+
+        def get_model_trainer_config(self) -> ModelTrainerConfig:
+                config = self.config.model_trainer
+                params = self.params.XgboostClassifier
+                schema = self.schema.TARGET_COLUMN
+
+                create_directories([config.root_dir])
+
+                model_trainer_config = ModelTrainerConfig(
+                root_dir= config.root_dir,
+                train_data_path= config.train_data_path,
+                test_data_path= config.test_data_path,
+                model_path=config.model_path,
+                model_name= config.model_name,
+                learning_rate= params.learning_rate,
+                max_depth= params.max_depth,
+                n_estimators= params.n_estimators,
+                target_column= schema.name
+                )
+
+                return model_trainer_config
+        
+
+        def get_model_evalution_config(self) -> ModelEvaluationConfig:
+                config = self.config.model_evaluation
+                params = self.params.XgboostClassifier
+                schema = self.schema.TARGET_COLUMN
+
+                create_directories([config.root_dir])
+
+                model_evaluation_config = ModelEvaluationConfig(
+                root_dir=config.root_dir,
+                test_data_path=config.test_data_path,
+                model_path=config.model_path,
+                all_params=params,
+                metric_file_name=config.metric_file_name,
+                target_column=schema.name,
+                mlflow_uri="https://dagshub.com/SanjuShusanth/Late-Delivery-Classification-Machine-Learning-Project.mlflow",
+                )
+
+                return model_evaluation_config
