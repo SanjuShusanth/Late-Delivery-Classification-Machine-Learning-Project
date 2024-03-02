@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Prediction App</title>
+    <link rel="icon" type="image/x-icon" href="static/css/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Shipment Price Prediction App</h1>
+    <!-- Added id attribute to the form -->
+    <form id="predictionForm" action="/predict/" method="post" onsubmit="return postData()">
+        <label for="Type">Type:</label>
+        <select name="Type" id="Type" type="text">
+            <option value="DEBIT">DEBIT</option>
+            <option value="TRANSFER">TRANSFER</option>
+            <option value="PAYMENT">PAYMENT</option>
+            <option value="CASH">CASH</option>
+        </select>
+
+        <label for="Customer_Country">Customer_Country:</label>
+        <select name="Customer_Country" id="Customer_Country" type="text">
+            <option value="EE. UU.">EE. UU.</option>
+            <option value="Puerto Rico">Puerto Rico</option>
+        </select>
+
+        <label for="Customer_Segment">Customer_Segment:</label>
+        <select name="Customer_Segment" id="Customer_Segment" type="text">
+            <option value="Consumer">Consumer</option>
+            <option value="Corporate">Corporate</option>
+            <option value="Home Office">Home Office</option>
+        </select>
+
+        <label for="Order_Country">Order_Country:</label>
+        <select name="Order_Country" id="Order_Country" type="text">
+            <option value="Estados Unidos">Estados Unidos</option>
+            <option value="México">México</option>
+            <option value="Francia">Francia</option>
+            <option value="Alemania">Alemania</option>
+            <option value="Australia">Australia</option>
+            <option value="Brasil">Brasil</option>
+            <option value="Reino Unido">Reino Unido</option>
+            <option value="China">China</option>
+            <option value="Others">Others</option>
+        </select>
+
+        <label for="Order_Status">Order_Status:</label>
+        <select name="Order_Status" id="Order_Status" type="text">
+            <option value="COMPLETE">COMPLETE</option>
+            <option value="PROCESSING">PROCESSING</option>
+            <option value="CLOSED">CLOSED</option>
+            <option value="ON_HOLD">ON HOLD</option>
+            <option value="PENDING">PENDING</option>
+            <option value="PAYMENT_REVIEW">PAYMENT REVIEW</option>
+            <option value="CANCELED">CANCELED</option>
+            <option value="SUSPECTED_FRAUD">SUSPECTED FRAUD</option>
+            <option value="PENDING_PAYMENT">PENDING PAYMENT</option>
+        </select>
+
+        <label for="Product_Name">Product_Name:</label>
+        <select name="Product_Name" id="Product_Name" type="text">
+            <option value="Perfect Fitness Perfect Rip Deck">Perfect Fitness Perfect Rip Deck</option>
+            <option value="Nike Mens Dri-FIT Victory Golf Polo">Nike Mens Dri-FIT Victory Golf Polo</option>
+            <option value="Nike Mens CJ Elite 2 TD Football Cleat">Nike Mens CJ Elite 2 TD Football Cleat</option>
+            <option value="O'Brien Men's Neoprene Life Vest">O Brien Mens Neoprene Life Vest</option>
+            <option value="Field & Stream Sportsman 16 Gun Fire Safe">Field & Stream Sportsman 16 Gun Fire Safe</option>
+            <option value="Pelican Sunstream 100 Kayak">Pelican Sunstream 100 Kayak</option>
+            <option value="Others">Others</option>
+        </select>
+
+        <label for="Shipping_Mode">Shipping_Mode:</label>
+        <select name="Shipping_Mode" id="Shipping_Mode" type="text">
+            <option value="Same Day">Same Day</option>
+            <option value="First Class">First Class</option>
+            <option value="Standard Class">Standard Class</option>
+            <option value="Second Class">Second Class</option>
+        </select>
+        
+        <label for="Days_for_shipment_scheduled">Days_for_shipment_scheduled:</label>
+        <input type="text" name="Days_for_shipment_scheduled" id="Days_for_shipment_scheduled" required><br>
+
+        <label for="Order_Item_Discount_Rate">Order_Item_Discount_Rate:</label>
+        <input type="text" name="Order_Item_Discount_Rate" id="Order_Item_Discount_Rate" required><br>
+
+        <label for="Order_Item_Quantity">Order_Item_Quantity:</label>
+        <input type="text" name="Order_Item_Quantity" id="Order_Item_Quantity" required><br>
+
+        <label for="Sales">Sales:</label>
+        <input type="text" name="Sales" id="Sales" required><br>
+
+        <label for="Product_Price">Product_Price:</label>
+        <input type="text" name="Product_Price" id="Product_Price" required><br>
+
+        <label for="order_date_year">order_date_year:</label>
+        <input type="text" name="order_date_year" id="order_date_year" required><br>
+
+        <label for="order_date_month">order_date_month:</label>
+        <input type="text" name="order_date_month" id="order_date_month" required><br>
+
+        <label for="order_date_day">order_date_day:</label>
+        <input type="text" name="order_date_day" id="order_date_day" required><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <script>
+    async function postData() {
+        var formData = new FormData(document.getElementById('predictionForm'));
+
+        const response = await fetch('/predict/', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.text();
+        console.log(data);
+
+        document.body.innerHTML = data;
+
+        return false;
+    }
+    </script>
+    <!-- Footer-->
+    <footer class="border-top">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/sanju-shakthivel-57199417a/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.youtube.com/channel/UCHhs2FhK_O1kRvMvaco2hFQ">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://github.com/SanjuShusanth">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="small text-center text-muted fst-italic"></div>
+                    <div class="small text-center text-muted fst-italic"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Core theme JS-->
+    <script src="/static/js/scripts.js"></script>
+</body>
+</html>
+    
+

@@ -1,22 +1,20 @@
 COLUMNS:
   Type: object
-  Days_for_shipment_(scheduled): int64
-  Benefit_per_order: float64
-  Sales_per_customer: float64
+  Days_for_shipment_scheduled: int64
   Late_delivery_risk: int64
-  Latitude: float64
-  Longitude: float64
-  Order_Item_Discount: float64
+  Customer_Country: object
+  Customer_Segment: object
+  Order_Country: object
   Order_Item_Discount_Rate: float64
-  Order_Item_Product_Price: float64
-  Order_Item_Profit_Ratio: float64
   Order_Item_Quantity: int64
   Sales: float64
-  Order_Item_Total: float64
-  Order_Profit_Per_Order: float64
   Order_Status: object
+  Product_Name: object
   Product_Price: float64
   Shipping_Mode: object
+  order_date_year: int64
+  order_date_month: int64
+  order_date_day: int64
 
 TARGET_COLUMN:
   name: Late_delivery_risk

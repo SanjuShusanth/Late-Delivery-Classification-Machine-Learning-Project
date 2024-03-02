@@ -1,0 +1,58 @@
+body {
+    background-image: url('../css2/lg2.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Popins;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color:crimson;
+    background-position: center;
+    font-size:xx-large;
+    text-decoration: solid;
+    font-family: popins;
+
+}
+
+
+h2 {
+    text-align:left;
+    color:aquamarine;
+    background-position: left;
+    font-size:large;
+    text-decoration:aliceblue;
+    font-family: popins;
+}
+
+h3 {
+    text-align:left;
+    color:aquamarine;
+    background-position: left;
+    font-size:large;
+    text-decoration:aliceblue;
+    font-family: popins;
+}
+
+
+h4 {
+    text-align:left;
+    color:aquamarine;
+    background-position: left;
+    font-size:large;
+    text-decoration:aliceblue;
+    font-family: popins;
+}
+
+p {
+    text-align: center;
+    color:whitesmoke;
+    background-position: center;
+    text-decoration: solid;
+    font-size:xx-large;
+    font-family: popins;
+}
