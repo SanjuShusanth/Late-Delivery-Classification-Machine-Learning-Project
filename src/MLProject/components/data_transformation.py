@@ -23,7 +23,7 @@ class DataTransformation:
                               'Order_Item_Discount_Rate', 'Order_Item_Quantity', 'Sales',
                               'Product_Price', 'order_date_year', 'order_date_month','order_date_day']
             
-            nom_cat_cols = ['Customer_Country','Order_Country']
+            nom_cat_cols = ['Customer_Country','Order_Country','Order_Status']
             
             num_pipeline=Pipeline(
                 steps=[
@@ -173,7 +173,7 @@ class DataTransformation:
         test_df['Shipping_Mode'] = test_df['Shipping_Mode'].map(Shipping)
 
 
-        encoding_cols =['Order_Status','Product_Name']
+        encoding_cols =['Product_Name']
         label_encoders ={}
         for column in encoding_cols:
             label_encoders[column]=LabelEncoder()
